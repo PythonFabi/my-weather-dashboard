@@ -22,6 +22,7 @@ header {
 .city-search {
     padding: 1rem;
 }
+
 /* Ipads, Tablets */
 @media screen and (min-width:480px){
     
