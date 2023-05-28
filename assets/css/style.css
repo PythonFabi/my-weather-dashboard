@@ -1,0 +1,53 @@
+header {
+    text-align: center;
+    background: linear-gradient(45deg, rgb(58, 69, 226) , rgb(5, 8, 54));
+    color: rgb(255, 252, 252);
+    padding: 0.5rem;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    
+}
+
+.btn {
+    width: 100%;
+
+}
+
+.form-label {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.city-search {
+    padding: 1rem;
+}
+
+.container {
+    width:100%;
+    
+}
+/* Ipads, Tablets */
+@media screen and (min-width:480px){
+    
+    h1 {
+    padding-right: 2em;
+    }
+}
+
+
+/* Small screens, laptops */
+@media screen and (min-width:768px){
+    
+    h1 {
+        padding-right: 3em;
+    }
+}
+
+/* Desktops, large screens */
+@media screen and (min-width:1024px){
+    
+    h1 {
+        padding-right: 10em;
+    }
+}
