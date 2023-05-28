@@ -23,6 +23,10 @@ header {
     padding: 1rem;
 }
 
+.container {
+    width:100%;
+    
+}
 /* Ipads, Tablets */
 @media screen and (min-width:480px){
     
