@@ -1,7 +1,12 @@
+:root {
+    --lightGrey: rgb(161, 157, 157);
+    --eggWhite: rgb(255, 252, 252);
+}
+
 header {
     text-align: center;
     background: linear-gradient(45deg, rgb(58, 69, 226) , rgb(5, 8, 54));
-    color: rgb(255, 252, 252);
+    color: var(--eggWhite);
     padding: 0.5rem;
     display: flex;
     justify-content: flex-end;
@@ -9,9 +14,17 @@ header {
     
 }
 
+.container {
+    width:100%;
+}
+
 .btn {
     width: 100%;
+}
 
+.btn-secondary {
+    background-color: var(--lightGrey);
+    color: black;
 }
 
 .form-label {
@@ -19,13 +32,16 @@ header {
     font-weight: bold;
 }
 
+form {
+    border-bottom: 4px solid var(--lightGrey);
+    padding-bottom: 1rem;
+}
+
 .city-search {
     padding: 1rem;
 }
 
-.container {
-    width:100%;
-}
+
 
 li {
     list-style: none;
