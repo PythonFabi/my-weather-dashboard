@@ -10,10 +10,10 @@ function saveCities(event) {
 
 
     if(cityValue.trim() === "") {
-        console.log("Please provide a valid cityname!");
+        window.alert("Please provide a valid cityname!");
     } else {
         var geoCodeUrl ='https://api.openweathermap.org/geo/1.0/direct';
-        var geoCodeApi ='${geoCodeUrl}?q=${cityValue}&limit=1&appid=${myApiKey}';
+        var geoCodeApi = geoCodeUrl+'?q='+cityValue+'&limit=1&appid='+myApiKey;
 
         fetch(geoCodeApi)
             .then(function (response) {
@@ -25,7 +25,7 @@ function saveCities(event) {
             var longtitude = data[0].lon;
 
             var forecastUrl = 'https://api.openweathermap.org/data/2.5/forecast';
-            var forecastApi = '${forecastUrl}?lat=${latitude}&lon={longtitude}&appid=${myApiKey}';
+            var forecastApi = forecastUrl+'?lat='+latitude+'&lon='+longtitude+'&appid='+myApiKey;
 
             fetch(forecastApi)
                 .then(function (response) {
@@ -39,7 +39,7 @@ function saveCities(event) {
                         var temperature = forecast.main.temp;
                         var windspeed = forecast.wind.speed;
                         var humidity = forecast.main.humidity;
-                        var weatherCondition = forecast.weather[0].desctiption;
+                        var weatherCondition = forecast.weather[0].description;
 
                         console.log("City Name:", name);
                         console.log("Date:", date);
@@ -66,7 +66,7 @@ function saveCities(event) {
         localStorage.setItem("city", cityValue);
         renderSearchHistory();
         cityInput.val('');
-    };  
+    } 
 };
 
 
