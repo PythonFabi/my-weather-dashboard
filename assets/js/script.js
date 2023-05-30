@@ -12,9 +12,22 @@ function saveCities(event) {
     if(cityValue.trim() === "") {
         window.alert("Please provide a valid cityname!");
     } else {
-        var geoCodeUrl ='https://api.openweathermap.org/geo/1.0/direct';
-        var geoCodeApi = geoCodeUrl+'?q='+cityValue+'&limit=1&appid='+myApiKey;
+     
+        
 
+        var storedCities = JSON.parse(localStorage.getItem('cities')) || [];
+        storedCities.push(cityValue);
+        localStorage.setItem('cities', JSON.stringify(storedCities));
+
+        renderSearchHistory();
+        fetchWeatherForecast(cityValue);
+        cityInput.val('');
+    };
+};
+
+    function fetchWeatherForecast(city){
+    var geoCodeUrl ='https://api.openweathermap.org/geo/1.0/direct';
+    var geoCodeApi = geoCodeUrl+'?q='+city+'&limit=1&appid='+myApiKey;
         fetch(geoCodeApi)
             .then(function (response) {
             return response.json();
@@ -48,39 +61,45 @@ function saveCities(event) {
                         console.log("Humidity:", humidity);
                         console.log("Weather Condition:", weatherCondition);
                     });
+
+
+                    var storedCities = JSON.parse(localStorage.getItem('cities')) || [];
+                    storedCities.push(cityValue);
+                    localStorage.setItem('cities', JSON.stringify(storedCities));
+
+                    renderSearchHistory();
+                    cityInput.val('');
                 })
 
                 .catch(function(error){
                     console.log('Error:', error);
                 });
-
-
-
-
           })
           .catch(function(error) {
             console.log('Error:', error);
           });
+        };
 
+       
+    
 
-        localStorage.setItem("city", cityValue);
-        renderSearchHistory();
-        cityInput.val('');
-    } 
-};
 
 
 // renders the Search-history in form of buttons under the form
 function renderSearchHistory() {
-    var storedCity = localStorage.getItem("city");
-    var savedCity = $('<li>');
-    var savedCityButton = $('<button>');
-
-    savedCityButton.text(storedCity);
-    savedCityButton.addClass('btn btn-secondary');
-
-    savedCity.append(savedCityButton);
-    searchHistory.append(savedCity);
+    searchHistory.empty();
+    var storedCities = JSON.parse(localStorage.getItem('cities')) || [];
+    storedCities.forEach(function(city) {
+        var savedCity = $('<li>');
+        var savedCityButton = $('<button>');
+    
+        savedCityButton.text(city);
+        savedCityButton.addClass('btn btn-secondary');
+    
+        savedCity.append(savedCityButton);
+        searchHistory.append(savedCity);
+    });
+  
 };
 
 
