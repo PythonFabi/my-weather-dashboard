@@ -44,7 +44,8 @@ form {
 .current-weather-style {
     border: 2px solid black;
     margin: 2rem 0;
-    padding: 1rem;
+    padding: 0.5rem;
+    line-height: 1rem;
 }
 
 
