@@ -110,7 +110,7 @@ function saveCities(event) {
                         .then(function (data) {
                             var date = dayjs().format('M/D/YYYY');
                             var forecastList= data.list;
-                            forecastList.forEach(function (forecast) {
+                            for (var i = 1; i < forecastList.length; i+=6) {
                                 var temperature = forecast.main.temp;
                                 var windspeed = forecast.wind.speed;
                                 var humidity = forecast.main.humidity;
@@ -119,7 +119,7 @@ function saveCities(event) {
 
                                 var celsius = Math.round(temperature - 273.15);
 
-                                console.log(data);
+                                console.log(forecastList[i]);
 
                                 var forecastItemHtml = $('<div>' + '<h3>'+ ' ' + date +  '</h3>' + '<br>' +
                                 '<img src="' + weatherIconUrl + '" alt="Weather Icon">' + '<br>' +
@@ -127,8 +127,10 @@ function saveCities(event) {
                                 '<p>Wind: '+ windspeed + ' MPH</p>' + '<br>' + 
                                 '<p>Humidity: '+ humidity + ' %</p>' + '</div>');
                                 forecastItemHtml.addClass('forecast-style');
-                                fiveDayForecastDiv.append(forecastItemHtml);
-                            });
+                                fiveDayForecastDiv.append(forecastItemHtml);            
+                            };
+                              
+                            
                         })
 
                         .catch(function(error){
