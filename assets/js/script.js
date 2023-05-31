@@ -21,6 +21,7 @@ function saveCities(event) {
 
         renderSearchHistory();
         fetchWeatherForecast(cityValue);
+        fiveDayForecast(cityValue);
         cityInput.val('');
     };
 };
@@ -45,10 +46,11 @@ function saveCities(event) {
                 return response.json(); 
                 })
                 .then(function (data) {
-                    var forecastList = data.list;
-                    forecastList.forEach(function (forecast) {
+                    var date = dayjs().format('M/D/YYYY');
+                    var forecast = data.list[0];
+               
                         var name = data.city.name; 
-                        var date = forecast.dt_txt;
+
                         var temperature = forecast.main.temp;
                         var windspeed = forecast.wind.speed;
                         var humidity = forecast.main.humidity;
@@ -57,17 +59,12 @@ function saveCities(event) {
 
                         var celsius = Math.round(temperature - 273.15);
 
-                        console.log("City Name:", name);
-                        console.log("Date:", date);
-                        console.log("Temperature:", temperature);
-                        console.log("Windspeed:", windspeed);
-                        console.log("Humidity:", humidity);
-                        console.log("Weather Condition:", weatherCondition);
+                        console.log(data);
 
                         currentWeatherDiv.empty();
                         fiveDayForecastDiv.empty();
 
-                        var currentWeatherHTML = $('<h2>'+ name + ' ' + date + '<img src="' + weatherIconUrl + '" alt="Weather Icon">' + '</h2>' + '<br>' +
+                        var currentWeatherHTML = $('<h2>'+ name + ' ' + '(' + date + ')' + '<img src="' + weatherIconUrl + '" alt="Weather Icon">' + '</h2>' + '<br>' +
                         '<p>Temp: '+ celsius + '°C</p>' + '<br>' +
                         '<p>Wind: '+ windspeed + ' MPH</p>' + '<br>' + 
                         '<p>Humidity: '+ humidity + ' %</p>');
@@ -76,7 +73,6 @@ function saveCities(event) {
 
                         forecastHeading.text("5-Day Forecast:");
                     });
-
 
                     var storedCities = JSON.parse(localStorage.getItem('cities')) || [];
                     storedCities.push(cityValue);
@@ -89,11 +85,58 @@ function saveCities(event) {
                 .catch(function(error){
                     console.log('Error:', error);
                 });
-          })
-          .catch(function(error) {
-            console.log('Error:', error);
-          });
         };
+
+
+        function fiveDayForecast(city) {
+            var geoCodeUrl ='https://api.openweathermap.org/geo/1.0/direct';
+            var geoCodeApi = geoCodeUrl+'?q='+city+'&limit=1&appid='+myApiKey;
+                fetch(geoCodeApi)
+                    .then(function (response) {
+                    return response.json();
+                    })
+                    .then(function (data){
+                    // get latitude and longtitude from the geocodingAPI response
+                    var latitude = data[0].lat;
+                    var longtitude = data[0].lon;
+
+                    var forecastUrl = 'https://api.openweathermap.org/data/2.5/forecast';
+                    var forecastApi = forecastUrl+'?lat='+latitude+'&lon='+longtitude+'&appid='+myApiKey;
+
+                    fetch(forecastApi)
+                        .then(function (response) {
+                        return response.json(); 
+                        })
+                        .then(function (data) {
+                            var date = dayjs().format('M/D/YYYY');
+                            var forecastList= data.list;
+                            forecastList.forEach(function (forecast) {
+                                var temperature = forecast.main.temp;
+                                var windspeed = forecast.wind.speed;
+                                var humidity = forecast.main.humidity;
+                                var weatherCondition = forecast.weather[0].icon;
+                                var weatherIconUrl = 'https://openweathermap.org/img/w/' + weatherCondition + '.png';
+
+                                var celsius = Math.round(temperature - 273.15);
+
+                                console.log(data);
+
+                                var forecastItemHtml = $('<div>' + '<h3>'+ ' ' + date +  '</h3>' + '<br>' +
+                                '<img src="' + weatherIconUrl + '" alt="Weather Icon">' + '<br>' +
+                                '<p>Temp: '+ celsius + '°C</p>' + '<br>' +
+                                '<p>Wind: '+ windspeed + ' MPH</p>' + '<br>' + 
+                                '<p>Humidity: '+ humidity + ' %</p>' + '</div>');
+                                forecastItemHtml.addClass('forecast-style');
+                                fiveDayForecastDiv.append(forecastItemHtml);
+                            });
+                        })
+
+                        .catch(function(error){
+                            console.log('Error:', error);
+                        });
+                    });
+        };
+        
 
        
     
