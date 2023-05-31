@@ -3,6 +3,7 @@ var submitButton = $('form');
 var cityInput = $('#citySearch');
 var myApiKey = 'f49ee689d4dabda3b9e19b6dac6d6729';
 var currentWeatherDiv = $('.current-weather');
+var forecastHeading = $('.forecast-heading');
 var fiveDayForecastDiv = $('.five-day-forecast');
 
 // Saves searched cities in the localstorage, clears the input field and calls the renderSearchHistory function
@@ -72,6 +73,8 @@ function saveCities(event) {
                         '<p>Humidity: '+ humidity + ' %</p>');
                         currentWeatherDiv.addClass('current-weather-style');
                         currentWeatherDiv.append(currentWeatherHTML);
+
+                        forecastHeading.text("5-Day Forecast:");
                     });
 
 
