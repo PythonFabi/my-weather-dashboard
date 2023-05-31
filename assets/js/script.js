@@ -2,6 +2,8 @@ var searchHistory = $('.search-history');
 var submitButton = $('form');
 var cityInput = $('#citySearch');
 var myApiKey = 'f49ee689d4dabda3b9e19b6dac6d6729';
+var currentWeatherDiv = $('.current-weather');
+var fiveDayForecastDiv = $('.five-day-forecast');
 
 // Saves searched cities in the localstorage, clears the input field and calls the renderSearchHistory function
 function saveCities(event) { 
@@ -12,9 +14,6 @@ function saveCities(event) {
     if(cityValue.trim() === "") {
         window.alert("Please provide a valid cityname!");
     } else {
-     
-        
-
         var storedCities = JSON.parse(localStorage.getItem('cities')) || [];
         storedCities.push(cityValue);
         localStorage.setItem('cities', JSON.stringify(storedCities));
@@ -52,7 +51,10 @@ function saveCities(event) {
                         var temperature = forecast.main.temp;
                         var windspeed = forecast.wind.speed;
                         var humidity = forecast.main.humidity;
-                        var weatherCondition = forecast.weather[0].description;
+                        var weatherCondition = forecast.weather[0].icon;
+                        var weatherIconUrl = 'https://openweathermap.org/img/w/' + weatherCondition + '.png';
+
+                        var celsius = Math.round(temperature - 273.15);
 
                         console.log("City Name:", name);
                         console.log("Date:", date);
@@ -60,6 +62,15 @@ function saveCities(event) {
                         console.log("Windspeed:", windspeed);
                         console.log("Humidity:", humidity);
                         console.log("Weather Condition:", weatherCondition);
+
+                        currentWeatherDiv.empty();
+                        fiveDayForecastDiv.empty();
+
+                        var currentWeatherHTML = $('<h2>'+ name + ' ' + date + '<img src="' + weatherIconUrl + '" alt="Weather Icon">' + '</h2>' + '<br>' +
+                        '<p>Temp: '+ celsius + '°C</p>' + '<br>' +
+                        '<p>Wind: '+ windspeed + ' MPH</p>' + '<br>' + 
+                        '<p>Humidity: '+ humidity + ' %</p>');
+                        currentWeatherDiv.append(currentWeatherHTML);
                     });
 
 
