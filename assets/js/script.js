@@ -70,6 +70,7 @@ function saveCities(event) {
                         '<p>Temp: '+ celsius + '°C</p>' + '<br>' +
                         '<p>Wind: '+ windspeed + ' MPH</p>' + '<br>' + 
                         '<p>Humidity: '+ humidity + ' %</p>');
+                        currentWeatherDiv.addClass('current-weather-style');
                         currentWeatherDiv.append(currentWeatherHTML);
                     });
 

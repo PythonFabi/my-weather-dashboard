@@ -41,6 +41,11 @@ form {
     padding: 1rem;
 }
 
+.current-weather-style {
+    border: 2px solid black;
+    margin: 2rem 0;
+    padding: 1rem;
+}
 
 
 li {
