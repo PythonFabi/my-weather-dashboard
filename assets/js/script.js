@@ -108,26 +108,31 @@ function saveCities(event) {
                         return response.json(); 
                         })
                         .then(function (data) {
-                            var date = dayjs().format('M/D/YYYY');
+                            
                             var forecastList= data.list;
-                            for (var i = 1; i < forecastList.length; i+=6) {
-                                var temperature = forecast.main.temp;
-                                var windspeed = forecast.wind.speed;
-                                var humidity = forecast.main.humidity;
-                                var weatherCondition = forecast.weather[0].icon;
-                                var weatherIconUrl = 'https://openweathermap.org/img/w/' + weatherCondition + '.png';
-
-                                var celsius = Math.round(temperature - 273.15);
-
-                                console.log(forecastList[i]);
-
-                                var forecastItemHtml = $('<div>' + '<h3>'+ ' ' + date +  '</h3>' + '<br>' +
-                                '<img src="' + weatherIconUrl + '" alt="Weather Icon">' + '<br>' +
-                                '<p>Temp: '+ celsius + '°C</p>' + '<br>' +
-                                '<p>Wind: '+ windspeed + ' MPH</p>' + '<br>' + 
-                                '<p>Humidity: '+ humidity + ' %</p>' + '</div>');
-                                forecastItemHtml.addClass('forecast-style');
-                                fiveDayForecastDiv.append(forecastItemHtml);            
+                      
+                            for (var i = 1; i < forecastList.length; i++) {
+                                if(forecastList[i].dt_txt.slice(11,13) == 12) {
+                                    var date = dayjs(forecastList[i].dt_txt).format('M/D/YYYY');
+                                    var temperature = forecastList[i].main.temp;
+                                    var windspeed = forecastList[i].wind.speed;
+                                    var humidity = forecastList[i].main.humidity;
+                                    var weatherCondition = forecastList[i].weather[0].icon;
+                                    var weatherIconUrl = 'https://openweathermap.org/img/w/' + weatherCondition + '.png';
+    
+                                    var celsius = Math.round(temperature - 273.15);
+    
+                                    console.log(forecastList[i]);
+    
+                                    var forecastItemHtml = $('<div>' + '<h3>'+ ' ' + date +  '</h3>' + '<br>' +
+                                    '<img src="' + weatherIconUrl + '" alt="Weather Icon">' + '<br>' +
+                                    '<p>Temp: '+ celsius + '°C</p>' + '<br>' +
+                                    '<p>Wind: '+ windspeed + ' MPH</p>' + '<br>' + 
+                                    '<p>Humidity: '+ humidity + ' %</p>' + '</div>');
+                                    forecastItemHtml.addClass('forecast-style');
+                                    fiveDayForecastDiv.append(forecastItemHtml);  
+                                }
+                                   
                             };
                               
                             
