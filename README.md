@@ -22,7 +22,7 @@ After you entered the city, press the search button and you will be presented
 
 ![city-search ](https://github.com/PythonFabi/my-weather-dashboard/assets/129299589/90a67c40-6e8b-4af2-8fbf-17dc4200f809)
 
-with the current weather and forecast for the next five days.
+with the current weather and forecast for the next five days (weather at 12pm).
 
 ![general-weather](https://github.com/PythonFabi/my-weather-dashboard/assets/129299589/1b4d4c87-7402-4d19-b1a3-dbbc47c1c3cc)
 
