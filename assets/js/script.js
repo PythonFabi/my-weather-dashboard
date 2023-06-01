@@ -160,9 +160,15 @@ function renderSearchHistory() {
     
         savedCityButton.text(city);
         savedCityButton.addClass('btn btn-secondary');
+
+        savedCityButton.on('click', function() {
+            fetchWeatherForecast(city);
+            fiveDayForecast(city);
+        })
     
         savedCity.append(savedCityButton);
         searchHistory.append(savedCity);
+
     });
   
 };
