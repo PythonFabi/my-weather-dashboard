@@ -1,7 +1,7 @@
 :root {
     --lightGrey: rgb(161, 157, 157);
     --eggWhite: rgb(255, 252, 252);
-    --outer-space: #33393f;
+    --outer-space: rgb(46, 46, 75);
 }
 
 header {
@@ -52,6 +52,10 @@ form {
 .forecast-style {
     background-color: var(--outer-space);
     color: var(--eggWhite);
+    margin: 1rem;
+    line-height: 0.75rem;
+    padding: 1rem 1.75rem 1.5rem 1rem;
+    
 }
 
 
